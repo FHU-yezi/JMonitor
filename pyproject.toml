@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "JMonitor"
+version = "0.1.0"
+description = "简书服务状态监控工具"
+authors = ["FHU-yezi <yehaowei20060411@qq.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+APScheduler = "^3.9.1"
+httpx = "^0.23.0"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.961"
+yapf = "^0.32.0"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
