@@ -7,6 +7,11 @@ from yaml import load as yaml_load
 _DEFAULT_CONFIG = {
     "db_address": "localhost",
     "db_port": 27017,
+    "message_sender": {
+        "app_id": "",
+        "app_secret": "",
+        "email": ""
+    }
 }
 
 
