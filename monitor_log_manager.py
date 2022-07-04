@@ -85,3 +85,22 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
         return cursor[0]["time"]
     except IndexError:
         raise ValueError("该监控任务没有失败过")
+
+
+def GetLastTargetStatusCodeTime(service_name: str, module_name: str, status_code: int) -> datetime:
+    if not IsServiceAndModuleExists(service_name, module_name):
+        raise ValueError("服务或模块不存在")
+
+    cursor = monitor_log_db.find({
+        "service_name": service_name,
+        "module_name": module_name,
+        "status_code": status_code
+    }, {
+        "_id": 0,
+        "time": 1
+    }).sort("time", -1).limit(1)
+
+    try:
+        return cursor[0]["time"]
+    except IndexError:
+        raise ValueError("该监控任务没有出现过此状态码")
