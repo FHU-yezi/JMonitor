@@ -37,7 +37,7 @@ def SendFeishuCard(card: Dict) -> None:
 
 
 def SendServiceUnavailableCard(service_name: str, module_name: str, status_code: int,
-                               defined_error_name: str, error_message: str) -> None:
+                               error_name: str, error_message: str) -> None:
     time_now = GetNowWithoutMileseconds()
 
     card = {
@@ -88,7 +88,7 @@ def SendServiceUnavailableCard(service_name: str, module_name: str, status_code:
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**错误名称**\n{defined_error_name}"
+                            "content": f"**错误名称**\n{error_name}"
                         }
                     },
                     {
