@@ -1,0 +1,26 @@
+version: "3"
+
+networks:
+  mongodb:
+    external: true
+
+services:
+  main:
+    image: jmonitor:0.1.0
+    build: .
+    volumes:
+      - "./config.yaml:/app/config.yaml"
+    networks:
+      - mongodb
+    environment:
+      - PYTHONUNBUFFERED=1
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    stop_grace_period: 1s
