@@ -24,13 +24,16 @@ def MonitorSuccess(service_name: str, module_name: str, status_code: int) -> Non
 
 def MonitorFailure(service_name: str, module_name: str, status_code: int,
                    error_message: str = "") -> None:
+    status_desc = StatusToDesc(status_code)
     AddRunLog("MONITOR", "DEBUG", f"{service_name} {module_name} 运行失败，"
               f"状态码：{status_code}，状态描述：{status_desc}，错误信息：{error_message}")
-    status_desc = StatusToDesc(status_code)
 
     if not IsServiceAndModuleExists(service_name, module_name):  # 第一次记录
-        AddMonitorLog(service_name, module_name, True, status_code,
+        AddMonitorLog(service_name, module_name, False, status_code,
                       status_desc, error_message)
+        AddRunLog("MONITOR", "INFO", f"{service_name} {module_name} 服务不可用，已发送消息")
+        SendServiceUnavailableCard(service_name, module_name, status_code,
+                                   status_desc, error_message)
         return
 
     if IsOKLastTime(service_name, module_name):  # 服务故障
@@ -38,5 +41,5 @@ def MonitorFailure(service_name: str, module_name: str, status_code: int,
         SendServiceUnavailableCard(service_name, module_name, status_code,
                                    status_desc, error_message)
 
-    AddMonitorLog(service_name, module_name, True, status_code,
+    AddMonitorLog(service_name, module_name, False, status_code,
                   status_desc, error_message)
