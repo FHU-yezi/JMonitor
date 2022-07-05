@@ -5,7 +5,7 @@ from utils import GetNowWithoutMileseconds
 
 
 def AddMonitorLog(service_name: str, module_name: str, OK: bool,
-                  status_code: int, error_name: str, error_message: str = "") -> None:
+                  status_code: int, status_desc: str, error_message: str = "") -> None:
     """添加监控任务日志记录
 
     Args:
@@ -13,7 +13,7 @@ def AddMonitorLog(service_name: str, module_name: str, OK: bool,
         module_name (str): 模块名称
         OK (bool): 是否正常
         status_code (int): 状态码
-        error_name (str): 错误名称
+        status_desc (str): 状态描述
         error_message (str, optional): 错误信息. Defaults to "".
     """
     monitor_log_db.insert_one({
@@ -22,7 +22,7 @@ def AddMonitorLog(service_name: str, module_name: str, OK: bool,
         "module_name": module_name,
         "OK": OK,
         "status_code": status_code,
-        "error_name": error_name,
+        "status_desc": status_desc,
         "error_message": error_message
     })
 

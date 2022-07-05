@@ -37,7 +37,7 @@ def SendFeishuCard(card: Dict) -> None:
 
 
 def SendServiceUnavailableCard(service_name: str, module_name: str, status_code: int,
-                               error_name: str, error_message: str) -> None:
+                               status_desc: str, error_message: str) -> None:
     time_now = GetNowWithoutMileseconds()
 
     card = {
@@ -81,14 +81,14 @@ def SendServiceUnavailableCard(service_name: str, module_name: str, status_code:
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**错误码**\n{status_code}"
+                            "content": f"**状态码**\n{status_code}"
                         }
                     },
                     {
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**错误名称**\n{error_name}"
+                            "content": f"**状态描述**\n{status_desc}"
                         }
                     },
                     {
@@ -103,6 +103,47 @@ def SendServiceUnavailableCard(service_name: str, module_name: str, status_code:
                         "text": {
                             "tag": "lark_md",
                             "content": f"**错误信息**\n{error_message}"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+
+    SendFeishuCard(card)
+
+
+def SendServiceReavailableCard(service_name: str, module_name: str) -> None:
+    time_now = GetNowWithoutMileseconds()
+
+    card = {
+        "header": {
+            "title": {
+                "tag": "plain_text",
+                "content": "服务恢复提示"
+            },
+            "template": "green"
+        },
+        "elements": [
+            {
+                "tag": "markdown",
+                "content": f"**时间：**{time_now}"
+            },
+            {
+                "tag": "div",
+                "fields": [
+                    {
+                        "is_short": True,
+                        "text": {
+                            "tag": "lark_md",
+                            "content": f"**服务名**\n{service_name}"
+                        }
+                    },
+                    {
+                        "is_short": True,
+                        "text": {
+                            "tag": "lark_md",
+                            "content": f"**功能模块**\n{module_name}"
                         }
                     }
                 ]
