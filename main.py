@@ -15,10 +15,10 @@ scheduler = BackgroundScheduler()
 AddRunLog("SYSTEM", "INFO", "成功初始化调度器")
 
 funcs = GetAllRegisteredFuncs()
-AddRunLog("SYSTEM", "DEBUG", f"获取到 {len(funcs)} 个监控函数")
+AddRunLog("SYSTEM", "INFO", f"获取到 {len(funcs)} 个监控函数")
 
 for service_name, module_name, cron, func in funcs:
-    scheduler.add_job(func, "cron", **CronToKwargs(cron), id=f"{service_name}_{module_name}")
+    scheduler.add_job(func, "cron", **CronToKwargs(cron), id=f"{service_name}|{module_name}")
 AddRunLog("SYSTEM", "INFO", "已将监控函数加入调度")
 
 scheduler.add_listener(OnSuccessEvent, EVENT_JOB_EXECUTED)
