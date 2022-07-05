@@ -4,23 +4,23 @@ from typing import Callable, List, Tuple
 _registered_funcs = []
 
 
-def MonitorFunc(service_name: str, module_name: str, run_cron: str) -> Callable:
+def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
     """将函数注册为监控函数
 
     Args:
         service_name (str, optional): 服务名称
         module_name (str): 服务模块名称
-        run_cron (str, optional): 运行规则 cron 表达式
+        cron (str, optional): 运行规则 cron 表达式
 
     Returns:
         Callable: 原函数
     """
     def outer(func: Callable):
         @wraps(func)
-        def inner(service_name, module_name, run_cron):
-            _registered_funcs.append((service_name, module_name, run_cron, func))
+        def inner(service_name, module_name, cron):
+            _registered_funcs.append((service_name, module_name, cron, func))
             return func
-        return inner(service_name, module_name, run_cron)
+        return inner(service_name, module_name, cron)
     return outer
 
 
