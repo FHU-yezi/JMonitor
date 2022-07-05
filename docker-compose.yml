@@ -9,7 +9,7 @@ services:
     image: jmonitor:0.1.0
     build: .
     volumes:
-      - "./config.yaml:/app/config.yaml"
+      - "./config.yaml:/app/config.yaml:ro"
     networks:
       - mongodb
     environment:

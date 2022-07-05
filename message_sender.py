@@ -3,6 +3,7 @@ from typing import Dict
 from httpx import post as httpx_post
 
 from config_manager import config
+from run_log_manager import AddRunLog
 from utils import GetNowWithoutMileseconds
 
 
@@ -17,6 +18,7 @@ def GetFeishuToken() -> str:
     if response.json()["code"] == 0:
         return "Bearer " + response.json()["tenant_access_token"]
     else:
+        AddRunLog("SENDER", "ERROR", f"获取 Token 时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
         raise ValueError(f"获取 Token 时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
 
 
@@ -33,6 +35,7 @@ def SendFeishuCard(card: Dict) -> None:
     response = httpx_post("https://open.feishu.cn/open-apis/message/v4/send/",
                           headers=headers, json=data)
     if response.json()["code"] != 0:
+        AddRunLog("SENDER", "ERROR", f"发送消息卡片时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
         raise ValueError(f"发送消息卡片时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
 
 

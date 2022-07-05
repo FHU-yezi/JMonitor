@@ -7,6 +7,8 @@ from yaml import load as yaml_load
 _DEFAULT_CONFIG = {
     "db_address": "localhost",
     "db_port": 27017,
+    "minimum_record_log_level": "DEBUG",
+    "minimum_print_log_level": "INFO",
     "message_sender": {
         "app_id": "",
         "app_secret": "",

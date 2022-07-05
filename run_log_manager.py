@@ -4,7 +4,7 @@ from typing import Literal
 from config_manager import config
 from db_manager import run_log_db
 
-LOG_TYPES = {"SYSTEM", "MONITOR", "RECORDER", "SENDER"}
+LOG_TYPES = {"SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDER"}
 # 日志等级越大越重要
 LEVELS_TO_NUMS = {"DEBUG": 0,
                   "INFO": 1,
@@ -16,7 +16,7 @@ LEVELS = set(LEVELS_TO_NUMS.keys())
 
 
 # TODO: 用更优雅的方式实现类型标注
-def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "RECORDER", "SENDER"],
+def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDER"],
               level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
               content: str) -> None:
     if type_ not in LOG_TYPES:

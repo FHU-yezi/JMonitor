@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from db_manager import monitor_log_db
+from run_log_manager import AddRunLog
 from utils import GetNowWithoutMileseconds
 
 
@@ -38,6 +39,8 @@ def IsServiceAndModuleExists(service_name: str, module_name: str) -> bool:
 
 def IsOKLastTime(service_name: str, module_name: str) -> bool:
     if not IsServiceAndModuleExists(service_name, module_name):
+        AddRunLog("MONITOR", "ERROR", "函数 IsOKLastTime 中发生异常："
+                  f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     return monitor_log_db.find({
@@ -51,6 +54,8 @@ def IsOKLastTime(service_name: str, module_name: str) -> bool:
 
 def GetLastOKTime(service_name: str, module_name: str) -> datetime:
     if not IsServiceAndModuleExists(service_name, module_name):
+        AddRunLog("MONITOR", "ERROR", "函数 GetLastOKTime 中发生异常："
+                  f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     cursor = monitor_log_db.find({
@@ -70,6 +75,8 @@ def GetLastOKTime(service_name: str, module_name: str) -> datetime:
 
 def GetLastFailTime(service_name: str, module_name: str) -> datetime:
     if not IsServiceAndModuleExists(service_name, module_name):
+        AddRunLog("MONITOR", "ERROR", "函数 GetLastFailTime 中发生异常："
+                  f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     cursor = monitor_log_db.find({
@@ -89,6 +96,8 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
 
 def GetLastTargetStatusCodeTime(service_name: str, module_name: str, status_code: int) -> datetime:
     if not IsServiceAndModuleExists(service_name, module_name):
+        AddRunLog("MONITOR", "ERROR", "函数 GetLastTargetStatusCodeTime 中发生异常："
+                  f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     cursor = monitor_log_db.find({
