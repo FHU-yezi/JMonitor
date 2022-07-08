@@ -1,6 +1,6 @@
 from typing import Dict, Tuple
 
-from httpx import ConnectTimeout
+from httpx import ConnectTimeout, ReadTimeout
 from httpx import get as httpx_get
 from httpx import post as httpx_post
 
@@ -15,7 +15,7 @@ def WebGetRequestHelper(url: str, params: Dict = None, headers: Dict = None) -> 
 
     try:
         response = httpx_get(url, timeout=3, params=params, headers=headers)
-    except ConnectTimeout:
+    except (ConnectTimeout, ReadTimeout):
         return (False, 2006, "")
     except Exception as e:
         return (False, 2000, repr(e))
@@ -36,7 +36,7 @@ def WebPostRequestHelper(url: str, data: Dict = None, headers: Dict = None) -> T
 
     try:
         response = httpx_post(url, timeout=3, data=data, headers=headers)
-    except ConnectTimeout:
+    except (ConnectTimeout, ReadTimeout):
         return (False, 2006, "")
     except Exception as e:
         return (False, 2000, repr(e))
