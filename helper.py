@@ -7,7 +7,8 @@ from httpx import post as httpx_post
 from code_to_desc import HTTPStatusCodeConvert
 
 
-def WebGetRequestHelper(url: str, params: Dict = None, headers: Dict = None) -> Tuple[bool, int, str]:
+def WebGetRequestHelper(url: str, params: Dict = None,
+                        headers: Dict = None) -> Tuple[bool, int, str]:
     if not params:
         params = {}
     if not headers:
@@ -28,7 +29,8 @@ def WebGetRequestHelper(url: str, params: Dict = None, headers: Dict = None) -> 
         return (False, status_code, "")
 
 
-def WebPostRequestHelper(url: str, data: Dict = None, headers: Dict = None) -> Tuple[bool, int, str]:
+def WebPostRequestHelper(url: str, data: Dict = None,
+                         headers: Dict = None) -> Tuple[bool, int, str]:
     if not data:
         data = {}
     if not headers:

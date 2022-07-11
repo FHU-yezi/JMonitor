@@ -13,13 +13,17 @@ def GetFeishuToken() -> str:
         "app_id": config["message_sender/app_id"],
         "app_secret": config["message_sender/app_secret"]
     }
-    response = httpx_post("https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
+    response = httpx_post("https://open.feishu.cn/open-apis/auth/v3/"
+                          "tenant_access_token/internal",
                           headers=headers, json=data)
     if response.json()["code"] == 0:
         return "Bearer " + response.json()["tenant_access_token"]
     else:
-        AddRunLog("SENDER", "ERROR", f"获取 Token 时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
-        raise ValueError(f"获取 Token 时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
+        AddRunLog("SENDER", "ERROR", "获取 Token 时发生错误，错误码："
+                  f"{response.json()['code']}，错误信息：{response.json()['msg']}")
+        raise ValueError("获取 Token 时发生错误，"
+                         f"错误码：{response.json()['code']}，"
+                         f"错误信息：{response.json()['msg']}")
 
 
 def SendFeishuCard(card: Dict) -> None:
@@ -35,12 +39,17 @@ def SendFeishuCard(card: Dict) -> None:
     response = httpx_post("https://open.feishu.cn/open-apis/message/v4/send/",
                           headers=headers, json=data)
     if response.json()["code"] != 0:
-        AddRunLog("SENDER", "ERROR", f"发送消息卡片时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
-        raise ValueError(f"发送消息卡片时发生错误，错误码：{response.json()['code']}，错误信息：{response.json()['msg']}")
+        AddRunLog("SENDER", "ERROR", "发送消息卡片时发生错误，"
+                  f"错误码：{response.json()['code']}，"
+                  f"错误信息：{response.json()['msg']}")
+        raise ValueError("发送消息卡片时发生错误，"
+                         f"错误码：{response.json()['code']}，"
+                         f"错误信息：{response.json()['msg']}")
 
 
-def SendServiceUnavailableCard(service_name: str, module_name: str, status_code: int,
-                               status_desc: str, error_message: str) -> None:
+def SendServiceUnavailableCard(service_name: str, module_name: str,
+                               status_code: int, status_desc: str,
+                               error_message: str) -> None:
     time_now = GetNowWithoutMileseconds()
 
     card = {

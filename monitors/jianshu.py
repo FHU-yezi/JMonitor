@@ -9,4 +9,6 @@ def jianshu_website():
 
 @MonitorFunc("jianshu", "api", "0 1-59 * * * *")
 def jianshu_api():
-    return WebGetRequestHelper("https://www.jianshu.com/asimov/users/slug/ea36c8d8aa30")
+    return WebGetRequestHelper(
+        "https://www.jianshu.com/asimov/users/slug/ea36c8d8aa30"
+    )

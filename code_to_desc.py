@@ -7,8 +7,9 @@ try:
     with open("code_to_message.yaml", "r", encoding="utf-8") as f:
         mapping = yaml_load(f, Loader=SafeLoader)
 except FileNotFoundError:
-    AddRunLog("SYSTEM", "CRITICAL", "未找到状态信息映射文件 code_to_message.yaml")
-    pass
+    AddRunLog("SYSTEM", "CRITICAL",
+              "未找到状态码映射文件 code_to_message.yaml")
+    exit(1)
 
 
 def HTTPStatusCodeConvert(status_code: int) -> int:

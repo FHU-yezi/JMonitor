@@ -5,8 +5,9 @@ from run_log_manager import AddRunLog
 from utils import GetNowWithoutMileseconds
 
 
-def AddMonitorLog(service_name: str, module_name: str, OK: bool,
-                  status_code: int, status_desc: str, error_message: str = "") -> None:
+def AddMonitorLog(service_name: str, module_name: str,
+                  OK: bool, status_code: int, status_desc: str,
+                  error_message: str = "") -> None:
     """添加监控任务日志记录
 
     Args:
@@ -94,7 +95,8 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
         raise ValueError("该监控任务没有失败过")
 
 
-def GetLastTargetStatusCodeTime(service_name: str, module_name: str, status_code: int) -> datetime:
+def GetLastTargetStatusCodeTime(service_name: str, module_name: str,
+                                status_code: int) -> datetime:
     if not IsServiceAndModuleExists(service_name, module_name):
         AddRunLog("MONITOR", "ERROR", "函数 GetLastTargetStatusCodeTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
