@@ -16,7 +16,8 @@ LEVELS = set(LEVELS_TO_NUMS.keys())
 
 
 # TODO: 用更优雅的方式实现类型标注
-def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDER"],
+def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER",
+                             "RECORDER", "SENDER"],
               level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
               content: str) -> None:
     if type_ not in LOG_TYPES:
@@ -24,7 +25,8 @@ def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDE
     if level not in LEVELS:
         raise ValueError(f"指定的日志等级 {level} 不存在")
 
-    if LEVELS_TO_NUMS[level] < LEVELS_TO_NUMS[config["minimum_record_log_level"]]:
+    if LEVELS_TO_NUMS[level] < \
+       LEVELS_TO_NUMS[config["minimum_record_log_level"]]:
         return  # 小于最小记录等级则不记录
 
     run_log_db.insert_one({
@@ -34,6 +36,8 @@ def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDE
         "content": content
     })
 
-    if LEVELS_TO_NUMS[level] >= LEVELS_TO_NUMS[config["minimum_print_log_level"]]:
+    if LEVELS_TO_NUMS[level] >= \
+       LEVELS_TO_NUMS[config["minimum_print_log_level"]]:
         # 大于等于最小输出等级，输出日志
-        print(f"[{datetime.now().strftime(r'%Y-%m-%d %H:%M:%S')}] [{type_}] [{level}] {content}")
+        print(f"[{datetime.now().strftime(r'%Y-%m-%d %H:%M:%S')}]"
+              f" [{type_}] [{level}] {content}")

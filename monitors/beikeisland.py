@@ -9,7 +9,7 @@ def beikeisland_website():
 
 @MonitorFunc("beikeisland", "api", "0 0/5 * * * *")
 def beikeisland_api():
-    return WebPostRequestHelper("https://www.beikeisland.com/api/Trade/getTradeList",
-                                data={"pageIndex": 1,
-                                      "retype": 2
-                                      })
+    return WebPostRequestHelper(
+        "https://www.beikeisland.com/api/Trade/getTradeList",
+        data={"pageIndex": 1, "retype": 2}
+    )

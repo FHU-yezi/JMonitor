@@ -21,7 +21,8 @@ def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
         @wraps(func)
         def inner(service_name, module_name, cron):
             _registered_funcs.append((service_name, module_name, cron, func))
-            AddRunLog("REGISTER", "DEBUG", f"成功注册监控函数 {service_name} {module_name}，"
+            AddRunLog("REGISTER", "DEBUG", "成功注册监控函数 "
+                      f"{service_name} {module_name}，"
                       f"cron 表达式：{cron}")
             return func
         return inner(service_name, module_name, cron)

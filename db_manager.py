@@ -4,7 +4,8 @@ from config_manager import config
 
 
 def InitDB():
-    connection: MongoClient = MongoClient(config["db_address"], config["db_port"])
+    connection: MongoClient = MongoClient(config["db_address"],
+                                          config["db_port"])
     db = connection.JMonitorData
     return db
 
