@@ -8,6 +8,13 @@ from run_log_manager import AddRunLog
 
 def MonitorSuccess(service_name: str, module_name: str,
                    status_code: int) -> None:
+    """监控任务成功回调
+
+    Args:
+        service_name (str): 服务名称
+        module_name (str): 模块名称
+        status_code (int): 状态码
+    """
     status_desc = StatusToDesc(status_code)
     AddRunLog("MONITOR", "DEBUG", f"{service_name} {module_name} 运行成功，"
               f"状态码：{status_code}，状态描述：{status_desc}")
@@ -27,6 +34,14 @@ def MonitorSuccess(service_name: str, module_name: str,
 
 def MonitorFailure(service_name: str, module_name: str, status_code: int,
                    error_message: str = "") -> None:
+    """监控任务失败回调
+
+    Args:
+        service_name (str): 服务名称
+        module_name (str): 模块名称
+        status_code (int): 状态码
+        error_message (str, optional): 错误信息. Defaults to "".
+    """
     status_desc = StatusToDesc(status_code)
     AddRunLog("MONITOR", "DEBUG", f"{service_name} {module_name} 运行失败，"
               f"状态码：{status_code}，状态描述：{status_desc}，"

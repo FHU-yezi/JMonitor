@@ -8,6 +8,14 @@ from utils import GetNowWithoutMileseconds
 
 
 def GetFeishuToken() -> str:
+    """获取飞书 Token
+
+    Raises:
+        ValueError: 获取 Token 失败
+
+    Returns:
+        str: 飞书 Token
+    """
     headers = {"Content-Type": "application/json; charset=utf-8"}
     data = {
         "app_id": config["message_sender/app_id"],
@@ -27,6 +35,14 @@ def GetFeishuToken() -> str:
 
 
 def SendFeishuCard(card: Dict) -> None:
+    """发送飞书卡片
+
+    Args:
+        card (Dict): 飞书卡片
+
+    Raises:
+        ValueError: 发送飞书卡片失败
+    """
     token = GetFeishuToken()
     headers = {"Content-Type": "application/json; charset=utf-8",
                "Authorization": token}
@@ -50,6 +66,15 @@ def SendFeishuCard(card: Dict) -> None:
 def SendServiceUnavailableCard(service_name: str, module_name: str,
                                status_code: int, status_desc: str,
                                error_message: str) -> None:
+    """发送服务不可用卡片
+
+    Args:
+        service_name (str): 服务名称
+        module_name (str): 模块名称
+        status_code (int): 状态码
+        status_desc (str): 状态描述
+        error_message (str): 错误信息
+    """
     time_now = GetNowWithoutMileseconds()
 
     card = {
@@ -126,6 +151,12 @@ def SendServiceUnavailableCard(service_name: str, module_name: str,
 
 
 def SendServiceReavailableCard(service_name: str, module_name: str) -> None:
+    """发送服务恢复卡片
+
+    Args:
+        service_name (str): 服务名称
+        module_name (str): 模块名称
+    """
     time_now = GetNowWithoutMileseconds()
 
     card = {

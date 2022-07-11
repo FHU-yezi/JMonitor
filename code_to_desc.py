@@ -12,18 +12,26 @@ except FileNotFoundError:
     exit(1)
 
 
-def HTTPStatusCodeConvert(status_code: int) -> int:
-    if status_code == 200:
+def HTTPStatusCodeConvert(http_status_code: int) -> int:
+    """将 HTTP 状态码转换成内部状态码
+
+    Args:
+        status_code (int): HTTP 状态码
+
+    Returns:
+        int: 内部状态码
+    """
+    if http_status_code == 200:
         return 0  # 正常
-    elif status_code == 401:
+    elif http_status_code == 401:
         return 2001  # 鉴权问题
-    elif status_code == 403:
+    elif http_status_code == 403:
         return 2001  # 拒绝服务
-    elif 500 <= status_code <= 599:
+    elif 500 <= http_status_code <= 599:
         return 2003  # 服务器故障
-    elif status_code == 400:
+    elif http_status_code == 400:
         return 2004  # 请求数据错误
-    elif 300 <= status_code <= 399:
+    elif 300 <= http_status_code <= 399:
         return 2005  # 发生重定向
     return 2000  # 未知网络问题
 

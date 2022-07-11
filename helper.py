@@ -9,6 +9,16 @@ from code_to_desc import HTTPStatusCodeConvert
 
 def WebGetRequestHelper(url: str, params: Dict = None,
                         headers: Dict = None) -> Tuple[bool, int, str]:
+    """Get 网络请求监控任务的简化实现
+
+    Args:
+        url (str): 目标 URL
+        params (Dict, optional): 请求参数. Defaults to None.
+        headers (Dict, optional): 请求头. Defaults to None.
+
+    Returns:
+        Tuple[bool, int, str]: 是否成功，状态码，错误信息
+    """
     if not params:
         params = {}
     if not headers:
@@ -31,6 +41,16 @@ def WebGetRequestHelper(url: str, params: Dict = None,
 
 def WebPostRequestHelper(url: str, data: Dict = None,
                          headers: Dict = None) -> Tuple[bool, int, str]:
+    """Post 网络请求监控任务的简化实现
+
+    Args:
+        url (str): 目标 URL
+        data (Dict, optional): 请求数据. Defaults to None.
+        headers (Dict, optional): 请求头. Defaults to None.
+
+    Returns:
+        Tuple[bool, int, str]: 是否成功，状态码，错误信息
+    """
     if not data:
         data = {}
     if not headers:
