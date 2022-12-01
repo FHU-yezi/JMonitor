@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from db_manager import monitor_log_db
 from run_log_manager import AddRunLog
 from utils import GetNowWithoutMileseconds
+from utils.db import monitor_log_db
 
 
 def AddMonitorLog(service_name: str, module_name: str,
