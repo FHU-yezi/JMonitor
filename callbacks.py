@@ -1,6 +1,5 @@
 from code_to_desc import StatusToDesc
-from message_sender import (SendServiceReavailableCard,
-                            SendServiceUnavailableCard)
+from utils.message import send_service_reavailable_card, send_service_unavailable_card
 from monitor_log_manager import (AddMonitorLog, IsOKLastTime,
                                  IsServiceAndModuleExists)
 from utils.log import run_logger
@@ -27,7 +26,7 @@ def MonitorSuccess(service_name: str, module_name: str,
     if not IsOKLastTime(service_name, module_name):  # 服务恢复
         run_logger.info(f"{service_name} {module_name} "
                   "服务恢复，已发送消息")
-        SendServiceReavailableCard(service_name, module_name)
+        send_service_reavailable_card(service_name, module_name)
 
     AddMonitorLog(service_name, module_name, True, status_code, status_desc)
 
@@ -52,14 +51,14 @@ def MonitorFailure(service_name: str, module_name: str, status_code: int,
                       status_desc, error_message)
         run_logger.info(f"{service_name} {module_name} "
                   "服务不可用，已发送消息")
-        SendServiceUnavailableCard(service_name, module_name, status_code,
+        send_service_unavailable_card(service_name, module_name, status_code,
                                    status_desc, error_message)
         return
 
     if IsOKLastTime(service_name, module_name):  # 服务故障
         run_logger.info("{service_name} {module_name} "
                   "服务不可用，已发送消息")
-        SendServiceUnavailableCard(service_name, module_name, status_code,
+        send_service_unavailable_card(service_name, module_name, status_code,
                                    status_desc, error_message)
 
     AddMonitorLog(service_name, module_name, False, status_code,

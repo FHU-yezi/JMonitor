@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from utils_old import GetNowWithoutMileseconds
+from utils.time_helper import get_now_without_mileseconds
 from utils.db import monitor_log_db
 from utils.log import run_logger
 
@@ -19,7 +19,7 @@ def AddMonitorLog(service_name: str, module_name: str,
         error_message (str, optional): 错误信息. Defaults to "".
     """
     monitor_log_db.insert_one({
-        "time": GetNowWithoutMileseconds(),
+        "time": get_now_without_mileseconds(),
         "service_name": service_name,
         "module_name": module_name,
         "OK": OK,
