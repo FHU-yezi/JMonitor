@@ -1,5 +1,6 @@
 from yaml import SafeLoader
 from yaml import load as yaml_load
+
 from utils.log import run_logger
 
 try:
@@ -11,7 +12,7 @@ except FileNotFoundError:
     exit(1)
 
 
-def HTTPStatusCodeConvert(http_status_code: int) -> int:
+def HTTP_code_to_internal_code(http_status_code: int) -> int:
     """将 HTTP 状态码转换成内部状态码
 
     Args:
@@ -35,5 +36,5 @@ def HTTPStatusCodeConvert(http_status_code: int) -> int:
     return 2000  # 未知网络问题
 
 
-def StatusToDesc(status_code: int) -> str:
+def internal_status_code_to_desc(status_code: int) -> str:
     return mapping[status_code]

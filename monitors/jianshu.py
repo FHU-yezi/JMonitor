@@ -1,14 +1,14 @@
-from helper import WebGetRequestHelper
-from register import MonitorFunc
+from helper import HTTP_get_request_helper
+from register import monitor
 
 
-@MonitorFunc("jianshu", "website", "0 1-59 * * * *")
+@monitor("jianshu", "website", "0 1-59 * * * *")
 def jianshu_website():
-    return WebGetRequestHelper("https://www.jianshu.com")
+    return HTTP_get_request_helper("https://www.jianshu.com")
 
 
-@MonitorFunc("jianshu", "api", "0 1-59 * * * *")
+@monitor("jianshu", "api", "0 1-59 * * * *")
 def jianshu_api():
-    return WebGetRequestHelper(
+    return HTTP_get_request_helper(
         "https://www.jianshu.com/asimov/users/slug/ea36c8d8aa30"
     )

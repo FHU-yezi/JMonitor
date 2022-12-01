@@ -6,7 +6,7 @@ from utils.log import run_logger
 _registered_funcs = []
 
 
-def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
+def monitor(service_name: str, module_name: str, cron: str) -> Callable:
     """将函数注册为监控函数
 
     Args:
@@ -29,7 +29,7 @@ def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
     return outer
 
 
-def GetAllRegisteredFuncs() -> List[Tuple[str, str, str, Callable]]:
+def get_all_monitors() -> List[Tuple[str, str, str, Callable]]:
     """获取注册的监控函数列表
 
     Returns:

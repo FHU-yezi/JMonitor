@@ -5,7 +5,7 @@ from utils.db import monitor_log_db
 from utils.log import run_logger
 
 
-def AddMonitorLog(service_name: str, module_name: str,
+def add_monitor_log(service_name: str, module_name: str,
                   OK: bool, status_code: int, status_desc: str,
                   error_message: str = "") -> None:
     """添加监控任务日志记录
@@ -29,7 +29,7 @@ def AddMonitorLog(service_name: str, module_name: str,
     })
 
 
-def IsServiceAndModuleExists(service_name: str, module_name: str) -> bool:
+def is_service_and_module_exists(service_name: str, module_name: str) -> bool:
     """判断服务和模块是否存在
 
     Args:
@@ -47,7 +47,7 @@ def IsServiceAndModuleExists(service_name: str, module_name: str) -> bool:
     return False
 
 
-def IsOKLastTime(service_name: str, module_name: str) -> bool:
+def is_OK_last_time(service_name: str, module_name: str) -> bool:
     """判断服务和模块上次是否为正常状态
 
     Args:
@@ -60,7 +60,7 @@ def IsOKLastTime(service_name: str, module_name: str) -> bool:
     Returns:
         bool: 是否正常
     """
-    if not IsServiceAndModuleExists(service_name, module_name):
+    if not is_service_and_module_exists(service_name, module_name):
         run_logger.error("函数 IsOKLastTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
@@ -74,7 +74,7 @@ def IsOKLastTime(service_name: str, module_name: str) -> bool:
     }).sort("time", -1).limit(1)[0]["OK"]
 
 
-def GetLastOKTime(service_name: str, module_name: str) -> datetime:
+def get_last_OK_time(service_name: str, module_name: str) -> datetime:
     """获取服务和模块上次执行成功的时间
 
     Args:
@@ -88,7 +88,7 @@ def GetLastOKTime(service_name: str, module_name: str) -> datetime:
     Returns:
         datetime: 上一次成功时间
     """
-    if not IsServiceAndModuleExists(service_name, module_name):
+    if not is_service_and_module_exists(service_name, module_name):
         run_logger.error("函数 GetLastOKTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
@@ -108,7 +108,7 @@ def GetLastOKTime(service_name: str, module_name: str) -> datetime:
         raise ValueError("该监控任务没有成功过")
 
 
-def GetLastFailTime(service_name: str, module_name: str) -> datetime:
+def get_last_fail_time(service_name: str, module_name: str) -> datetime:
     """获取服务和模块上次执行失败的时间
 
     Args:
@@ -122,7 +122,7 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
     Returns:
         datetime: 上一次失败时间
     """
-    if not IsServiceAndModuleExists(service_name, module_name):
+    if not is_service_and_module_exists(service_name, module_name):
         run_logger.error("函数 GetLastFailTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
@@ -142,7 +142,7 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
         raise ValueError("该监控任务没有失败过")
 
 
-def GetLastTargetStatusCodeTime(service_name: str, module_name: str,
+def get_last_target_status_code_time(service_name: str, module_name: str,
                                 status_code: int) -> datetime:
     """获取服务和模块上次返回此状态码的时间
 
@@ -158,7 +158,7 @@ def GetLastTargetStatusCodeTime(service_name: str, module_name: str,
     Returns:
         datetime: 上次出现该状态码的时间
     """
-    if not IsServiceAndModuleExists(service_name, module_name):
+    if not is_service_and_module_exists(service_name, module_name):
         run_logger.error("函数 GetLastTargetStatusCodeTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
