@@ -1,4 +1,4 @@
-from monitors import beikeisland, jianshu, ssservices
+from monitors import jianshu, ssservices
 
 
 def init_monitors():
