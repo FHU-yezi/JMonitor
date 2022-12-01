@@ -18,3 +18,9 @@ def get_collection(collection_name: str):
 
 run_log_db = db.system_log
 monitor_log_db = db.monitor_log
+
+# 创建索引
+monitor_log_db.create_index([("service_name", 1)])
+monitor_log_db.create_index([("module_name", 1)])
+monitor_log_db.create_index([("status_code", 1)])
+monitor_log_db.create_index([("time", 1)])
