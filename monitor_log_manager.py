@@ -73,7 +73,7 @@ def is_OK_last_time(service_name: str, module_name: str) -> bool:
         bool: 是否正常
     """
     if not is_service_and_module_exists(service_name, module_name):
-        run_logger.error("函数 IsOKLastTime 中发生异常：" f"{service_name} {module_name} 不存在")
+        run_logger.error(f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     return (
@@ -107,7 +107,7 @@ def get_last_OK_time(service_name: str, module_name: str) -> datetime:
         datetime: 上一次成功时间
     """
     if not is_service_and_module_exists(service_name, module_name):
-        run_logger.error("函数 GetLastOKTime 中发生异常：" f"{service_name} {module_name} 不存在")
+        run_logger.error(f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
     cursor = (
@@ -148,7 +148,7 @@ def get_last_fail_time(service_name: str, module_name: str) -> datetime:
     """
     if not is_service_and_module_exists(service_name, module_name):
         run_logger.error(
-            "函数 GetLastFailTime 中发生异常：" f"{service_name} {module_name} 不存在"
+            "f"{service_name} {module_name} 不存在"
         )
         raise ValueError("服务或模块不存在")
 
@@ -193,7 +193,7 @@ def get_last_target_status_code_time(
     """
     if not is_service_and_module_exists(service_name, module_name):
         run_logger.error(
-            "函数 GetLastTargetStatusCodeTime 中发生异常：" f"{service_name} {module_name} 不存在"
+            f"{service_name} {module_name} 不存在"
         )
         raise ValueError("服务或模块不存在")
 
