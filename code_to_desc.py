@@ -7,8 +7,7 @@ try:
     with open("code_to_message.yaml", "r", encoding="utf-8") as f:
         mapping = yaml_load(f, Loader=SafeLoader)
 except FileNotFoundError:
-    run_logger.critical(
-              "未找到状态码映射文件 code_to_message.yaml")
+    run_logger.critical("未找到状态码映射文件 code_to_message.yaml")
     exit(1)
 
 

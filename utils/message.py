@@ -79,9 +79,13 @@ def send_feishu_card(card: Dict) -> None:
         )
 
 
-def send_service_unavailable_card(service_name: str, module_name: str,
-                               status_code: int, status_desc: str,
-                               error_message: str) -> None:
+def send_service_unavailable_card(
+    service_name: str,
+    module_name: str,
+    status_code: int,
+    status_desc: str,
+    error_message: str,
+) -> None:
     """发送服务不可用卡片
 
     Args:
@@ -97,14 +101,14 @@ def send_service_unavailable_card(service_name: str, module_name: str,
         "header": {
             "title": {
                 "tag": "plain_text",
-                "content": "服务不可用告警"
+                "content": "服务不可用告警",
             },
-            "template": "red"
+            "template": "red",
         },
         "elements": [
             {
                 "tag": "markdown",
-                "content": f"**时间：**{time_now}"
+                "content": f"**时间：**{time_now}",
             },
             {
                 "tag": "div",
@@ -113,54 +117,54 @@ def send_service_unavailable_card(service_name: str, module_name: str,
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**服务名**\n{service_name}"
-                        }
+                            "content": f"**服务名**\n{service_name}",
+                        },
                     },
                     {
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**功能模块**\n{module_name}"
-                        }
+                            "content": f"**功能模块**\n{module_name}",
+                        },
                     },
                     {
                         "is_short": False,
                         "text": {
                             "tag": "lark_md",
-                            "content": ""
-                        }
+                            "content": "",
+                        },
                     },
                     {
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**状态码**\n{status_code}"
-                        }
+                            "content": f"**状态码**\n{status_code}",
+                        },
                     },
                     {
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**状态描述**\n{status_desc}"
-                        }
+                            "content": f"**状态描述**\n{status_desc}",
+                        },
                     },
                     {
                         "is_short": False,
                         "text": {
                             "tag": "lark_md",
-                            "content": ""
-                        }
+                            "content": "",
+                        },
                     },
                     {
                         "is_short": False,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**错误信息**\n{error_message}"
-                        }
-                    }
-                ]
-            }
-        ]
+                            "content": f"**错误信息**\n{error_message}",
+                        },
+                    },
+                ],
+            },
+        ],
     }
 
     send_feishu_card(card)
@@ -179,14 +183,14 @@ def send_service_reavailable_card(service_name: str, module_name: str) -> None:
         "header": {
             "title": {
                 "tag": "plain_text",
-                "content": "服务恢复提示"
+                "content": "服务恢复提示",
             },
-            "template": "green"
+            "template": "green",
         },
         "elements": [
             {
                 "tag": "markdown",
-                "content": f"**时间：**{time_now}"
+                "content": f"**时间：**{time_now}",
             },
             {
                 "tag": "div",
@@ -195,19 +199,19 @@ def send_service_reavailable_card(service_name: str, module_name: str) -> None:
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**服务名**\n{service_name}"
-                        }
+                            "content": f"**服务名**\n{service_name}",
+                        },
                     },
                     {
                         "is_short": True,
                         "text": {
                             "tag": "lark_md",
-                            "content": f"**功能模块**\n{module_name}"
-                        }
-                    }
-                ]
-            }
-        ]
+                            "content": f"**功能模块**\n{module_name}",
+                        },
+                    },
+                ],
+            },
+        ],
     }
 
     send_feishu_card(card)

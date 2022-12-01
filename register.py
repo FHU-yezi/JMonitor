@@ -17,15 +17,18 @@ def monitor(service_name: str, module_name: str, cron: str) -> Callable:
     Returns:
         Callable: 原函数
     """
+
     def outer(func: Callable):
         @wraps(func)
         def inner(service_name, module_name, cron):
             _registered_funcs.append((service_name, module_name, cron, func))
-            run_logger.debug("成功注册监控函数 "
-                      f"{service_name} {module_name}，"
-                      f"cron 表达式：{cron}")
+            run_logger.debug(
+                "成功注册监控函数 " f"{service_name} {module_name}，" f"cron 表达式：{cron}"
+            )
             return func
+
         return inner(service_name, module_name, cron)
+
     return outer
 
 

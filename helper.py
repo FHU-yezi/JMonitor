@@ -7,8 +7,9 @@ from httpx import post as httpx_post
 from code_to_desc import HTTP_code_to_internal_code
 
 
-def HTTP_get_request_helper(url: str, params: Dict = None,
-                        headers: Dict = None) -> Tuple[bool, int, str]:
+def HTTP_get_request_helper(
+    url: str, params: Dict = None, headers: Dict = None
+) -> Tuple[bool, int, str]:
     """Get 网络请求监控任务的简化实现
 
     Args:
@@ -39,8 +40,9 @@ def HTTP_get_request_helper(url: str, params: Dict = None,
         return (False, status_code, "")
 
 
-def HTTP_post_request_helper(url: str, data: Dict = None,
-                         headers: Dict = None) -> Tuple[bool, int, str]:
+def HTTP_post_request_helper(
+    url: str, data: Dict = None, headers: Dict = None
+) -> Tuple[bool, int, str]:
     """Post 网络请求监控任务的简化实现
 
     Args:

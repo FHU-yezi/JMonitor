@@ -18,8 +18,8 @@ _DEFAULT_CONFIG = {
     "message_sender": {
         "app_id": "",
         "app_secret": "",
-        "email": ""
-    }
+        "email": "",
+    },
 }
 
 

@@ -18,8 +18,9 @@ funcs = get_all_monitors()
 run_logger.info(f"获取到 {len(funcs)} 个监控函数")
 
 for service_name, module_name, cron, func in funcs:
-    scheduler.add_job(func, "cron", **cron_to_kwargs(cron),
-                      id=f"{service_name}|{module_name}")
+    scheduler.add_job(
+        func, "cron", **cron_to_kwargs(cron), id=f"{service_name}|{module_name}"
+    )
 run_logger.info("已将监控函数加入调度")
 
 scheduler.add_listener(on_job_success, EVENT_JOB_EXECUTED)
