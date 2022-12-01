@@ -4,11 +4,12 @@ from httpx import ConnectTimeout, ReadTimeout
 from httpx import get as httpx_get
 from httpx import post as httpx_post
 
-from code_to_desc import HTTPStatusCodeConvert
+from code_to_desc import HTTP_code_to_internal_code
 
 
-def WebGetRequestHelper(url: str, params: Dict = None,
-                        headers: Dict = None) -> Tuple[bool, int, str]:
+def HTTP_get_request_helper(
+    url: str, params: Dict = None, headers: Dict = None
+) -> Tuple[bool, int, str]:
     """Get 网络请求监控任务的简化实现
 
     Args:
@@ -31,7 +32,7 @@ def WebGetRequestHelper(url: str, params: Dict = None,
     except Exception as e:
         return (False, 2000, repr(e))
     else:
-        status_code = HTTPStatusCodeConvert(response.status_code)
+        status_code = HTTP_code_to_internal_code(response.status_code)
 
     if status_code == 0:
         return (True, status_code, "")
@@ -39,8 +40,9 @@ def WebGetRequestHelper(url: str, params: Dict = None,
         return (False, status_code, "")
 
 
-def WebPostRequestHelper(url: str, data: Dict = None,
-                         headers: Dict = None) -> Tuple[bool, int, str]:
+def HTTP_post_request_helper(
+    url: str, data: Dict = None, headers: Dict = None
+) -> Tuple[bool, int, str]:
     """Post 网络请求监控任务的简化实现
 
     Args:
@@ -63,7 +65,7 @@ def WebPostRequestHelper(url: str, data: Dict = None,
     except Exception as e:
         return (False, 2000, repr(e))
     else:
-        status_code = HTTPStatusCodeConvert(response.status_code)
+        status_code = HTTP_code_to_internal_code(response.status_code)
 
     if status_code == 0:
         return (True, status_code, "")

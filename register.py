@@ -1,12 +1,12 @@
 from functools import wraps
 from typing import Callable, List, Tuple
 
-from run_log_manager import AddRunLog
+from utils.log import run_logger
 
 _registered_funcs = []
 
 
-def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
+def monitor(service_name: str, module_name: str, cron: str) -> Callable:
     """将函数注册为监控函数
 
     Args:
@@ -17,19 +17,22 @@ def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
     Returns:
         Callable: 原函数
     """
+
     def outer(func: Callable):
         @wraps(func)
         def inner(service_name, module_name, cron):
             _registered_funcs.append((service_name, module_name, cron, func))
-            AddRunLog("REGISTER", "DEBUG", "成功注册监控函数 "
-                      f"{service_name} {module_name}，"
-                      f"cron 表达式：{cron}")
+            run_logger.debug(
+                "成功注册监控函数 " f"{service_name} {module_name}，" f"cron 表达式：{cron}"
+            )
             return func
+
         return inner(service_name, module_name, cron)
+
     return outer
 
 
-def GetAllRegisteredFuncs() -> List[Tuple[str, str, str, Callable]]:
+def get_all_monitors() -> List[Tuple[str, str, str, Callable]]:
     """获取注册的监控函数列表
 
     Returns:

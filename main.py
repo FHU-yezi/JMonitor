@@ -3,31 +3,32 @@ from time import sleep
 from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from event_handlers import OnFailureEvent, OnSuccessEvent
+from event_handlers import on_job_fail, on_job_success
 from monitors import init_monitors
-from register import GetAllRegisteredFuncs
-from run_log_manager import AddRunLog
-from utils import CronToKwargs
+from register import get_all_monitors
+from utils.log import run_logger
+from utils.time_helper import cron_to_kwargs
 
 init_monitors()  # 运行相关模块，继而对监控任务进行注册操作
 
 scheduler = BackgroundScheduler()
-AddRunLog("SYSTEM", "INFO", "成功初始化调度器")
+run_logger.info("成功初始化调度器")
 
-funcs = GetAllRegisteredFuncs()
-AddRunLog("SYSTEM", "INFO", f"获取到 {len(funcs)} 个监控函数")
+funcs = get_all_monitors()
+run_logger.info(f"获取到 {len(funcs)} 个监控函数")
 
 for service_name, module_name, cron, func in funcs:
-    scheduler.add_job(func, "cron", **CronToKwargs(cron),
-                      id=f"{service_name}|{module_name}")
-AddRunLog("SYSTEM", "INFO", "已将监控函数加入调度")
+    scheduler.add_job(
+        func, "cron", **cron_to_kwargs(cron), id=f"{service_name}|{module_name}"
+    )
+run_logger.info("已将监控函数加入调度")
 
-scheduler.add_listener(OnSuccessEvent, EVENT_JOB_EXECUTED)
-scheduler.add_listener(OnFailureEvent, EVENT_JOB_ERROR)
-AddRunLog("SYSTEM", "INFO", "成功注册事件回调")
+scheduler.add_listener(on_job_success, EVENT_JOB_EXECUTED)
+scheduler.add_listener(on_job_fail, EVENT_JOB_ERROR)
+run_logger.info("成功注册事件回调")
 
 scheduler.start()
-AddRunLog("SYSTEM", "INFO", "调度器已启动")
+run_logger.info("调度器已启动")
 
 while True:
     sleep(10)
