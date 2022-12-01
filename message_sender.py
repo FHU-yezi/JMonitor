@@ -2,9 +2,9 @@ from typing import Dict
 
 from httpx import post as httpx_post
 
-from config_manager import config
 from run_log_manager import AddRunLog
 from utils import GetNowWithoutMileseconds
+from utils.config import config
 
 
 def GetFeishuToken() -> str:
@@ -18,8 +18,8 @@ def GetFeishuToken() -> str:
     """
     headers = {"Content-Type": "application/json; charset=utf-8"}
     data = {
-        "app_id": config["message_sender/app_id"],
-        "app_secret": config["message_sender/app_secret"]
+        "app_id": config.message_sender.app_id,
+        "app_secret": config.message_sender.app_secret
     }
     response = httpx_post("https://open.feishu.cn/open-apis/auth/v3/"
                           "tenant_access_token/internal",
@@ -48,7 +48,7 @@ def SendFeishuCard(card: Dict) -> None:
                "Authorization": token}
 
     data = {
-        "email": config["message_sender/email"],
+        "email": config.message_sender.email,
         "msg_type": "interactive",
         "card": card
     }

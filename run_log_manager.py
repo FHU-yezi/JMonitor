@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from config_manager import config
+from utils.config import config
 from utils.db import run_log_db
 
 LOG_TYPES = {"SYSTEM", "MONITOR", "REGISTER", "RECORDER", "SENDER"}
@@ -26,7 +26,7 @@ def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER",
         raise ValueError(f"指定的日志等级 {level} 不存在")
 
     if LEVELS_TO_NUMS[level] < \
-       LEVELS_TO_NUMS[config["minimum_record_log_level"]]:
+       LEVELS_TO_NUMS[config.log.minimum_record_log_level]:
         return  # 小于最小记录等级则不记录
 
     run_log_db.insert_one({
@@ -37,7 +37,7 @@ def AddRunLog(type_: Literal["SYSTEM", "MONITOR", "REGISTER",
     })
 
     if LEVELS_TO_NUMS[level] >= \
-       LEVELS_TO_NUMS[config["minimum_print_log_level"]]:
+       LEVELS_TO_NUMS[config.log.minimum_print_log_level]:
         # 大于等于最小输出等级，输出日志
         print(f"[{datetime.now().strftime(r'%Y-%m-%d %H:%M:%S')}]"
               f" [{type_}] [{level}] {content}")
