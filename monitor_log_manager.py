@@ -148,7 +148,7 @@ def get_last_fail_time(service_name: str, module_name: str) -> datetime:
     """
     if not is_service_and_module_exists(service_name, module_name):
         run_logger.error(
-            "f"{service_name} {module_name} 不存在"
+            f"{service_name} {module_name} 不存在"
         )
         raise ValueError("服务或模块不存在")
 
