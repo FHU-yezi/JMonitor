@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Callable, List, Tuple
 
-from run_log_manager import AddRunLog
+from utils.log import run_logger
 
 _registered_funcs = []
 
@@ -21,7 +21,7 @@ def MonitorFunc(service_name: str, module_name: str, cron: str) -> Callable:
         @wraps(func)
         def inner(service_name, module_name, cron):
             _registered_funcs.append((service_name, module_name, cron, func))
-            AddRunLog("REGISTER", "DEBUG", "成功注册监控函数 "
+            run_logger.debug("成功注册监控函数 "
                       f"{service_name} {module_name}，"
                       f"cron 表达式：{cron}")
             return func

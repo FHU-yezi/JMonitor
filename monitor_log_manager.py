@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from run_log_manager import AddRunLog
-from utils import GetNowWithoutMileseconds
+from utils_old import GetNowWithoutMileseconds
 from utils.db import monitor_log_db
+from utils.log import run_logger
 
 
 def AddMonitorLog(service_name: str, module_name: str,
@@ -61,7 +61,7 @@ def IsOKLastTime(service_name: str, module_name: str) -> bool:
         bool: 是否正常
     """
     if not IsServiceAndModuleExists(service_name, module_name):
-        AddRunLog("MONITOR", "ERROR", "函数 IsOKLastTime 中发生异常："
+        run_logger.error("函数 IsOKLastTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
@@ -89,7 +89,7 @@ def GetLastOKTime(service_name: str, module_name: str) -> datetime:
         datetime: 上一次成功时间
     """
     if not IsServiceAndModuleExists(service_name, module_name):
-        AddRunLog("MONITOR", "ERROR", "函数 GetLastOKTime 中发生异常："
+        run_logger.error("函数 GetLastOKTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
@@ -123,7 +123,7 @@ def GetLastFailTime(service_name: str, module_name: str) -> datetime:
         datetime: 上一次失败时间
     """
     if not IsServiceAndModuleExists(service_name, module_name):
-        AddRunLog("MONITOR", "ERROR", "函数 GetLastFailTime 中发生异常："
+        run_logger.error("函数 GetLastFailTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 
@@ -159,7 +159,7 @@ def GetLastTargetStatusCodeTime(service_name: str, module_name: str,
         datetime: 上次出现该状态码的时间
     """
     if not IsServiceAndModuleExists(service_name, module_name):
-        AddRunLog("MONITOR", "ERROR", "函数 GetLastTargetStatusCodeTime 中发生异常："
+        run_logger.error("函数 GetLastTargetStatusCodeTime 中发生异常："
                   f"{service_name} {module_name} 不存在")
         raise ValueError("服务或模块不存在")
 

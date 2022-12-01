@@ -1,13 +1,12 @@
 from yaml import SafeLoader
 from yaml import load as yaml_load
-
-from run_log_manager import AddRunLog
+from utils.log import run_logger
 
 try:
     with open("code_to_message.yaml", "r", encoding="utf-8") as f:
         mapping = yaml_load(f, Loader=SafeLoader)
 except FileNotFoundError:
-    AddRunLog("SYSTEM", "CRITICAL",
+    run_logger.critical(
               "未找到状态码映射文件 code_to_message.yaml")
     exit(1)
 
