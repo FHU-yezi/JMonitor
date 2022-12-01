@@ -6,7 +6,7 @@ networks:
 
 services:
   main:
-    image: jmonitor:0.1.2
+    image: jmonitor:0.2.0
     build: .
     volumes:
       - "./config.yaml:/app/config.yaml:ro"
